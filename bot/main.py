@@ -92,4 +92,4 @@ def start_bot():
         await channel.send(embed=embed)
 
 
-    bot.run(Env.TOKEN)
+    bot.run('MTA0NzkzODQxMDM0Nzc2NTkxMQ.GYttDK.Uc45Fvl0bmB7E55ZpiZWHruH0bWBFQ3azO1UvQ')
