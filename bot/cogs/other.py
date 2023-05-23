@@ -64,7 +64,7 @@ class __MainOtherCog(Cog):
         embed.set_image(url="https://pictures.ua.tribuna.com/image/6947c6cd-1c7f-462e-83da-502978fb7c11")
         for game in new_sales_data:
             embed.add_field(name=f'**{game["name"]}**',
-                            value=f'**Знишка: {game["discount_percent"]}%, Ціна: ~~ {str(game["original_price"])[:-2]} ~~   {str(game["final_price"])[:-2]} UAH**', inline=False)
+                            value=f'**Знишка: {game["discount_percent"]}%, Ціна: ~~ {str(game["original_price"])[:-2]} ~~   {str(game["final_price"])[:-2]} USD**', inline=False)
         embed.add_field(name='**Нові скидки від Steam!**',
                         value='**Встигни зекономити 💙💛**', inline=False)
         await self.bot.get_channel(1003933282267828306).send(embed=embed)
