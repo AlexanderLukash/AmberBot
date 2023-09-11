@@ -23,11 +23,12 @@ class __MainAdminCog(Cog):
                     )):
         embed = nextcord.Embed(title='✅ Успішно!',
                                description=f'Повідомлення успішно видалені. `` {amount} ``',
-                               colour=nextcord.Color.red())
+                               colour=nextcord.Color.dark_purple())
         embed.set_footer(text=interaction.user.name, icon_url=interaction.user.avatar.url)
         embed.set_author(name=self.bot.user.name, icon_url=self.bot.user.avatar.url)
+        embed.set_image(url='https://res.cloudinary.com/dndstfjbu/image/upload/v1694458613/clear_taku6z.png')
+        await interaction.response.send_message(content='', embed=embed, ephemeral=True, delete_after=15)
         await interaction.channel.purge(limit=int(amount))
-        await interaction.response.send_message(content='', embed=embed, ephemeral=True, delete_after=4)
 
     # Ban user
     @nextcord.slash_command(name=f'ban', description=f'💙 Заблокувати користувача 💛')
@@ -40,7 +41,7 @@ class __MainAdminCog(Cog):
                   )):
         embed = nextcord.Embed(title='✅ Успішно!',
                                description=f'Користувач **{user}** був заблокований.',
-                               colour=nextcord.Color.red())
+                               colour=nextcord.Color.dark_purple())
         embed.add_field(name='Причина:', value=f'{reason}.')
         embed.set_footer(text=interaction.user.name, icon_url=interaction.user.avatar.url)
         embed.set_author(name=self.bot.user.name, icon_url=self.bot.user.avatar.url)
@@ -50,15 +51,15 @@ class __MainAdminCog(Cog):
 
     @nextcord.slash_command(name=f'banned', description=f'💙 Заблокувати користувача 💛')
     async def banned(self, interaction: nextcord.Interaction):
-        embed = nextcord.Embed(title='Путин:',
+        embed = nextcord.Embed(title='Заблоковані:',
                                description=f'',
-                               colour=nextcord.Color.red())
+                               colour=nextcord.Color.dark_purple())
 
         embed.set_footer(text=interaction.user.name, icon_url=interaction.user.avatar.url)
         embed.set_author(name=self.bot.user.name, icon_url=self.bot.user.avatar.url)
         banned_users = interaction.guild.bans()
         async for entry in banned_users:
-            embed.add_field(name='Причина:', value=f'**{entry.user.name}**')
+            embed.add_field(name='', value=entry.user.mention)
         await interaction.response.send_message(content='', embed=embed, ephemeral=True, delete_after=30)
 
     # Kick user
@@ -72,7 +73,7 @@ class __MainAdminCog(Cog):
                    )):
         embed = nextcord.Embed(title='✅ Успішно!',
                                description=f'Користувач **{user}** був кікнутий.',
-                               colour=nextcord.Color.red())
+                               colour=nextcord.Color.dark_purple())
         embed.add_field(name='Причина:', value=f'{reason}.')
         embed.set_footer(text=interaction.user.name, icon_url=interaction.user.avatar.url)
         embed.set_author(name=self.bot.user.name, icon_url=self.bot.user.avatar.url)

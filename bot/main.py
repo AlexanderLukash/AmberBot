@@ -1,4 +1,5 @@
 import nextcord
+from cooldowns import CallableOnCooldown
 from nextcord import Intents, FFmpegPCMAudio
 from nextcord.ext.commands import Bot
 from nextcord.utils import get
@@ -62,12 +63,30 @@ def start_bot():
             await message.channel.send("💙 💛 **Хуйло!** 💙 💛")
 
     @bot.event
+    async def on_application_command_error(interaction: nextcord.Interaction, error):
+        error = getattr(error, "original", error)
+
+        if isinstance(error, CallableOnCooldown):
+            embed = nextcord.Embed(
+                title='❌ Ви дуже часто використовуєте цю команду!',
+                description=f'Спробуйте ще раз через: {round(error.retry_after // 60)} хвилин.',
+                color=nextcord.Color.dark_purple())
+            embed.set_image(url='https://res.cloudinary.com/dndstfjbu/image/upload/v1694437277/error_pcueb3.png')
+            embed.set_thumbnail(
+                url='https://res.cloudinary.com/dndstfjbu/image/upload/v1694435809/001_1-3000x3000_1_fzv705.png')
+            embed.set_author(name=interaction.user.name, icon_url=interaction.user.avatar.url)
+            await interaction.send(embed=embed, ephemeral=True)
+
+        else:
+            raise error
+
+    @bot.event
     async def on_member_join(member):
         role = get(member.guild.roles, id=1003708592333000746)
         await member.add_roles(role)
         embed = nextcord.Embed(title='Ласкаво просима до нашого серверу ALCON!',
                                description='Тут ти знайдеш з ким пограти в сумний, дощовий та сірий день.',
-                               color=nextcord.Color.red())
+                               color=nextcord.Color.dark_purple())
         embed.set_footer(text=member.name)
         embed.add_field(name='Ознайомся з правилами, та гайда грати! Поширюй українське.',
                         value='Разом до перемоги! Слава Україні! 💙💛')
@@ -77,7 +96,7 @@ def start_bot():
         await member.send(embed=embed)
         emb = nextcord.Embed(title=f'👋Ласкаво просимо!',
                              description=f'**{member.mention}, ти став новим учасником нашої спільноти! ALCON**',
-                             color=nextcord.Color.red())
+                             color=nextcord.Color.dark_purple())
         emb.set_author(name=bot.user.name, icon_url=bot.user.avatar.url)
         channel = bot.get_channel(1003697879615033464)
         await channel.send(embed=emb)
@@ -86,10 +105,10 @@ def start_bot():
     async def on_member_remove(member):
         embed = nextcord.Embed(title=f'Дякуємо тобі, що був з нами!',
                                description=f'{member.mention}, сподіваємось це був гарно витрачений час.',
-                               color=nextcord.Color.red())
+                               color=nextcord.Color.dark_purple())
         embed.set_author(name=bot.user.name, icon_url=bot.user.avatar.url)
         channel = bot.get_channel(1003697879615033464)
         await channel.send(embed=embed)
 
 
-    bot.run('MTA0NzkzODQxMDM0Nzc2NTkxMQ.GYttDK.Uc45Fvl0bmB7E55ZpiZWHruH0bWBFQ3azO1UvQ')
+    bot.run('MTA0NzkzODQxMDM0Nzc2NTkxMQ.GykdTS.MmyUIM5Oo36Qo7zZWBFu-Yl1RAPuZKbYYJakuo')
