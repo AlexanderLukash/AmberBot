@@ -1,3 +1,5 @@
+import os
+
 import nextcord
 from cooldowns import CallableOnCooldown
 from nextcord import Intents, FFmpegPCMAudio
@@ -115,4 +117,4 @@ def start_bot():
         await channel.send(embed=embed)
 
 
-    bot.run('MTA0NzkzODQxMDM0Nzc2NTkxMQ.GykdTS.MmyUIM5Oo36Qo7zZWBFu-Yl1RAPuZKbYYJakuo')
+    bot.run(os.environ.get('TOKEN'))
