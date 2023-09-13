@@ -67,9 +67,13 @@ def start_bot():
         error = getattr(error, "original", error)
 
         if isinstance(error, CallableOnCooldown):
+            total_seconds = round(error.retry_after)
+            minutes, seconds = divmod(total_seconds, 60)
+            hours, minutes = divmod(minutes, 60)
+            days, hours = divmod(hours, 24)
             embed = nextcord.Embed(
                 title='❌ Ви дуже часто використовуєте цю команду!',
-                description=f'Спробуйте ще раз через: {round(error.retry_after // 60)} хвилин.',
+                description=f'Спробуйте ще раз через: {days}:{hours}:{minutes}:{seconds}.',
                 color=nextcord.Color.dark_purple())
             embed.set_image(url='https://res.cloudinary.com/dndstfjbu/image/upload/v1694437277/error_pcueb3.png')
             embed.set_thumbnail(
