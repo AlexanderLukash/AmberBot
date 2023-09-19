@@ -112,6 +112,7 @@ class __MainAdminCog(Cog):
         embed.set_thumbnail(url='https://res.cloudinary.com/dndstfjbu/image/upload/v1694435809/001_1-3000x3000_1_fzv705.png')
         await interaction.send(content=f'Повідомлення надіслано в канал: <#{channel.id}>', ephemeral=True)
         await channel.send(content='<@&1005778153349857290>', embed=embed)
+        await channel.send(content='<@&1005778153349857290>', embed=embed)
 
 
 def register_admin_cogs(bot: Bot) -> None:
