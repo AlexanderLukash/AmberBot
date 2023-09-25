@@ -1,6 +1,9 @@
+import datetime
+import json
 import os
 
 import nextcord
+import nextwave
 from cooldowns import CallableOnCooldown
 from nextcord import Intents, FFmpegPCMAudio
 from nextcord.ext.commands import Bot
@@ -21,13 +24,22 @@ def start_bot():
     register_all_cogs(bot)
     register_models()
 
-    # Words
-    slavauk = ['слава україні', 'слава украине', 'slava ukraini', 'glory to ukraine']
-    slavanac = ['slava nacii', 'glory of the nation', 'слава нації', 'слава нации']
-    ukponad = ['ukraine', 'украина', 'україна']
+    @bot.event
+    async def on_ready():
+        bot.loop.create_task(node_connect())
+
+    async def node_connect():
+        await bot.wait_until_ready()
+        await nextwave.NodePool.create_node(bot=bot, host='lava.link', port=80, password='dismusic')
+
+    @bot.event
+    async def on_nextwave_node_ready(node: nextwave.Node):
+        """Event fired when a node has finished connecting."""
+        print(f'Node: <{node.identifier}> is ready!')
 
     @bot.event
     async def on_message(message):
+
         await bot.process_commands(message)
         msg = message.content.lower()
 
@@ -115,6 +127,5 @@ def start_bot():
         embed.set_author(name=bot.user.name, icon_url=bot.user.avatar.url)
         channel = bot.get_channel(1003697879615033464)
         await channel.send(embed=embed)
-
 
     bot.run(os.environ.get('TOKEN'))
