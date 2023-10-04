@@ -82,6 +82,16 @@ class CreateTicket(nextcord.ui.View):
         embed.set_footer(text="З повагою | AMBER",
                          icon_url='https://res.cloudinary.com/dndstfjbu/image/upload/v1694435809/001_1-3000x3000_1_fzv705.png')
         await channel.send(embed=embed, view=TicketSettings())
+        admin_channel = interaction.guild.get_channel(1003714020668346499)
+        admin_role = interaction.guild.get_role(1003930238599843903)
+        embed = nextcord.Embed(title='Нове повідомлення 📨',
+                               description=f'Адміни {admin_role.mention}\nКористувач {interaction.user.mention} залишив нове повідомлення в каналі: {channel.mention}',
+                               colour=nextcord.Color.dark_purple())
+        embed.set_thumbnail(
+            url='https://res.cloudinary.com/dndstfjbu/image/upload/v1694435809/001_1-3000x3000_1_fzv705.png')
+        embed.set_footer(text="Зв'яжіться з ним в найкоротший термін | AMBER",
+                         icon_url='https://res.cloudinary.com/dndstfjbu/image/upload/v1694435809/001_1-3000x3000_1_fzv705.png')
+        await admin_channel.send(embed=embed)
 
 
 class TicketSettings(nextcord.ui.View):
@@ -103,8 +113,7 @@ class TicketSettings(nextcord.ui.View):
                         custom_id='ticket_setting:red')
     async def close_ticket(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
         await interaction.send(
-            'Дякуємо, що звернулися до нас. Наша команда бажає вам гарного дня ✨\nКанал буде видалений за декілька секунд...',
-            ephemeral=True)
+            'Дякуємо, що звернулися до нас. Наша команда бажає вам гарного дня ✨\nКанал буде видалений за декілька секунд...')
         time.sleep(5)
         await interaction.channel.delete()
 
