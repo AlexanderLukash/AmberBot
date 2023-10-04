@@ -7,7 +7,7 @@ from nextcord.ext.commands import Bot
 
 
 # todo: TicketsCogs
-
+# Ticket sistem
 
 class AddUser(nextcord.ui.Modal):
     def __init__(self, channel):
