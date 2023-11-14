@@ -1,0 +1,46 @@
+{
+  "quizs": [
+    {
+      "quiz": "Какая столица Франции?",
+      "answers": [
+        {
+          "answer": "Лондон",
+          "correct": false
+        },
+        {
+          "answer": "Париж",
+          "correct": true
+        },
+        {
+          "answer": "Берлин",
+          "correct": false
+        },
+        {
+          "answer": "Киев",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "quiz": "Сколько будет 2 + 2?",
+      "answers": [
+        {
+          "answer": "4",
+          "correct": true
+        },
+        {
+          "answer": "5",
+          "correct": false
+        },
+        {
+          "answer": "3",
+          "correct": false
+        },
+        {
+          "answer": "7",
+          "correct": false
+        }
+      ]
+    }
+  ]
+}

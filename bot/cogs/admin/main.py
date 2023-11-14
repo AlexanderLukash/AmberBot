@@ -109,9 +109,92 @@ class __MainAdminCog(Cog):
         embed.add_field(name='Розвивай українське разом з AMBER :flag_ua:', value=f'', inline=False)
         embed.set_footer(text=self.bot.user.name, icon_url=self.bot.user.avatar.url)
         embed.set_image(url='https://res.cloudinary.com/dndstfjbu/image/upload/v1694962084/banner_media_b3uy1z.png')
-        embed.set_thumbnail(url='https://res.cloudinary.com/dndstfjbu/image/upload/v1694435809/001_1-3000x3000_1_fzv705.png')
+        embed.set_thumbnail(
+            url='https://res.cloudinary.com/dndstfjbu/image/upload/v1694435809/001_1-3000x3000_1_fzv705.png')
         await interaction.send(content=f'Повідомлення надіслано в канал: <#{channel.id}>', ephemeral=True)
         await channel.send(content='<@&1005778153349857290>', embed=embed)
+
+    @nextcord.slash_command(name=f'user_message', description=f'💙 Приватне повідомлення для учасника 💛')
+    @commands.has_permissions(ban_members=True)
+    async def user_message(self, interaction: nextcord.Interaction, user: nextcord.Member, title: str = SlashOption(
+        name="заголовок",
+        description="заголовок вашого повідомлення"), description: str = SlashOption(
+        name="опис",
+        description="опис вашого повідомлення"), text: str = SlashOption(
+        name="текст",
+        description="текст вашого повідомлення")):
+        embed = nextcord.Embed(title=f'{title}',
+                               description=f'{description}',
+                               url='https://discord.gg/DWn7FJVh5T',
+                               colour=nextcord.Color.dark_purple())
+        embed.set_thumbnail(
+            url='https://res.cloudinary.com/dndstfjbu/image/upload/v1694435809/001_1-3000x3000_1_fzv705.png')
+        embed.set_footer(text='Вибачте, що потурбували | AMBER', icon_url=self.bot.user.avatar.url)
+        embed.set_image(url='https://res.cloudinary.com/dndstfjbu/image/upload/v1694456127/infobanner_vt8hi8.png')
+        if text == None:
+            try:
+                await user.send(embed=embed)
+            except nextcord.Forbidden:
+                pass  # Skip members who can't receive DMs
+            except Exception as e:
+                pass  # Skip members who can't receive DMs
+            await interaction.send(content='Повідомлення надіслано:', embed=embed, ephemeral=True)
+        else:
+            embed.add_field(name=f'{text}', value=f"", inline=False)
+            try:
+                await user.send(embed=embed)
+            except nextcord.Forbidden:
+                pass  # Skip members who can't receive DMs
+            except Exception as e:
+                pass  # Skip members who can't receive DMs
+            await interaction.send(content='Повідомлення надіслано:', embed=embed, ephemeral=True)
+
+    @nextcord.slash_command(name=f'role_message', description=f'💙 Приватне повідомлення для групи учасників 💛')
+    @commands.has_permissions(ban_members=True)
+    async def role_message(self, interaction: nextcord.Interaction, role: nextcord.Role, title: str = SlashOption(
+        name="заголовок",
+        description="заголовок вашого повідомлення"), description: str = SlashOption(
+        name="опис",
+        description="опис вашого повідомлення"), text: str = SlashOption(
+        name="текст",
+        description="текст вашого повідомлення"), img: str = SlashOption(
+        name="зображення",
+        description="посиллання на зображення")):
+        embed = nextcord.Embed(title=f'{title}',
+                               description=f'{description}',
+                               url='https://discord.gg/DWn7FJVh5T',
+                               colour=nextcord.Color.dark_purple())
+        if img == None:
+            embed.set_image(url='https://res.cloudinary.com/dndstfjbu/image/upload/v1694456127/infobanner_vt8hi8.png')
+        else:
+            embed.set_image(url=f'{img}')
+        embed.set_thumbnail(
+            url='https://res.cloudinary.com/dndstfjbu/image/upload/v1694435809/001_1-3000x3000_1_fzv705.png')
+        embed.set_footer(text='Вибачте, що потурбували | AMBER', icon_url=self.bot.user.avatar.url)
+
+        if text == None:
+            await interaction.send(content='Повідомлення надіслано:', embed=embed, ephemeral=True)
+            for member in interaction.guild.members:
+                if role in member.roles:
+                    try:
+                        await member.send(embed=embed)
+                    except nextcord.Forbidden:
+                        pass  # Skip members who can't receive DMs
+                    except Exception as e:
+                        pass  # Skip members who can't receive DMs
+
+        else:
+            embed.add_field(name=f'{text}', value=f"", inline=False)
+            await interaction.send(content='Повідомлення надіслано:', embed=embed, ephemeral=True)
+            for member in interaction.guild.members:
+                if role in member.roles:
+                    try:
+                        await member.send(embed=embed)
+                    except nextcord.Forbidden:
+                        pass  # Skip members who can't receive DMs
+                    except Exception as e:
+                        pass  # Skip members who can't receive DMs
+
 
 
 def register_admin_cogs(bot: Bot) -> None:

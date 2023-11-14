@@ -5,7 +5,7 @@ from bot.cogs.other import register_other_cogs
 from bot.cogs.user import register_user_cogs
 from bot.cogs.admin.team import register_team_admin_cogs
 from bot.cogs.user.github import register_github_cogs
-
+from bot.cogs.event.halloween import register_halloween_event_cogs
 
 def register_all_cogs(bot: Bot) -> None:
     cogs = (
