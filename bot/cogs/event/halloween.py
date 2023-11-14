@@ -167,8 +167,6 @@ class AnswerButtons(nextcord.ui.View):
             self.value = False
             await interaction.send('False', ephemeral=True)
 
-
-# todo: HalloWeenCogs
 class __HalloWeenCog(Cog):
 
     def __init__(self, bot: Bot):
