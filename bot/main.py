@@ -37,45 +37,6 @@ def start_bot():
 
     @bot.event
     async def on_message(message):
-
-        file_name = "halloween_users.json"
-        try:
-            # Load current data from the file (if available)
-            with open(file_name, 'r') as file:
-                data = json.load(file)
-        except FileNotFoundError:
-            # If no file is found, create an empty dictionary
-            data = {}
-
-
-        if str(message.author.id) in data:
-            candy = data[str(message.author.id)][1]['candy']
-            new_candy = candy + 1
-            data[str(message.author.id)][1]['candy'] = new_candy
-            # Записываем обновленные данные в файл
-            with open(file_name, 'w') as file:
-                json.dump(data, file, indent=4)
-
-        else:
-            if message.author.id == 1047938410347765911:
-                pass
-            else:
-                data[message.author.id] = message.author.name, {'candy': 0}
-
-                # Записываем обновленные данные в файл
-                with open(file_name, 'w') as file:
-                    json.dump(data, file, indent=4)
-
-                with open(file_name, 'r') as file:
-                    data = json.load(file)
-
-                candy = data[str(message.author.id)][1]['candy']
-                new_candy = candy + 1
-                data[str(message.author.id)][1]['candy'] = new_candy
-
-                with open(file_name, 'w') as file:
-                    json.dump(data, file, indent=4)
-
         msg = message.content.lower()
 
         if msg.find('слава україні') != -1:
